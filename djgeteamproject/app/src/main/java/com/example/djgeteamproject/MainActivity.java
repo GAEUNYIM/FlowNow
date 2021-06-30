@@ -18,6 +18,8 @@ import com.example.djgeteamproject.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    myFragment1 fragment;
+
     private ActivityMainBinding binding;
 
     @Override
