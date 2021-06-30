@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         fragment2 = new myFragment2();
         fragment3 = new myFragment3();
 
+<<<<<<< Updated upstream
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
 
@@ -86,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+=======
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = binding.viewPager;
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = binding.tabs;
+        tabs.setupWithViewPager(viewPager);
+>>>>>>> Stashed changes
     }
 }
 // test123123
