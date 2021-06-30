@@ -1,0 +1,2 @@
+rootProject.name = "djgeteamproject"
+include ':app'

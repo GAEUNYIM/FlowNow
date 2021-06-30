@@ -14,11 +14,23 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e65b232a-4950-46c6-8bf9-fbfb2e21dd96" name="Default Changelist" comment="" />
+    <list default="true" id="22dc48f9-4bdd-470e-b56d-f1c21667b400" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/djgeteamproject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/djgeteamproject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1ufFyTDcdawwS4lz6Na5qZX7fwg" />
+  <component name="ProjectId" id="1ufJbYiR0sU6sa0sjnH5iLsKJww" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -112,11 +124,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e65b232a-4950-46c6-8bf9-fbfb2e21dd96" name="Default Changelist" comment="" />
-      <created>1625048991780</created>
+      <changelist id="22dc48f9-4bdd-470e-b56d-f1c21667b400" name="Default Changelist" comment="" />
+      <created>1625050782802</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1625048991780</updated>
+      <updated>1625050782802</updated>
     </task>
     <servers />
   </component>
