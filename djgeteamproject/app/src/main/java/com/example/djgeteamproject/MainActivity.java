@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         public Fragment createFragment(int position) {
             // Hardcoded in this order, you'll want to use lists and make sure the titles match
             switch (position) {
-                case 0:
-                    return new myFragment1();
                 case 1:
                     return new myFragment2();
                 case 2:

@@ -1,65 +1,74 @@
 package com.example.djgeteamproject;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link myFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class myFragment1 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public myFragment1() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment myFragment1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static myFragment1 newInstance(String param1, String param2) {
-        myFragment1 fragment = new myFragment1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
+    private ArrayList<Dictonary> contactslist = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private DicAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my1, container, false);
+        View v =  inflater.inflate(R.layout.fragment_my1, container, false);
+
+        //recyclerview
+        recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        mAdapter = new DicAdapter(contactslist);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        return v;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        prepareData();
+    }
+
+    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
+    private void prepareData() {
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+        contactslist.add(new Dictonary("A","12341234"));
+    }
+
 }
