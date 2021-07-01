@@ -6,8 +6,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +20,8 @@ import android.view.View;
 
 import com.example.djgeteamproject.ui.main.SectionsPagerAdapter;
 import com.example.djgeteamproject.databinding.ActivityMainBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,21 +79,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-//        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-//        ViewPager viewPager = binding.viewPager;
-//        viewPager.setAdapter(sectionsPagerAdapter);
-//        TabLayout tabs = binding.tabs;
-//        tabs.setupWithViewPager(viewPager);
-//        FloatingActionButton fab = binding.fab;
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 }
-// test123123
