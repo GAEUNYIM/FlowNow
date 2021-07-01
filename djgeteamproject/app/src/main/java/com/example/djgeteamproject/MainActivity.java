@@ -1,83 +1,90 @@
 package com.example.djgeteamproject;
 
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.example.djgeteamproject.ui.main.SectionsPagerAdapter;
-import com.example.djgeteamproject.databinding.ActivityMainBinding;
-
-import org.jetbrains.annotations.NotNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    myFragment1 fragment1;
-    myFragment2 fragment2;
-    myFragment3 fragment3;
-
-//    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); //?
+        setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        fragment1 = new myFragment1();
-        fragment2 = new myFragment2();
-        fragment3 = new myFragment3();
+        FragmentManager fm = getSupportFragmentManager();
+        final TabLayout tabLayout = findViewById(R.id.tabLayout);
+        final ViewPager2 pa = findViewById(R.id.viewPager);
+        ViewStateAdapter sa = new ViewStateAdapter(fm, getLifecycle());
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
+        pa.setAdapter(sa);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
 
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("Contacts"));
-        tabs.addTab(tabs.newTab().setText("Images"));
-        tabs.addTab(tabs.newTab().setText("Anything"));
-
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-
-                Fragment selected = null;
-                if (position == 0) {
-                    selected = fragment1;
-                } else if (position == 1) {
-                    selected = fragment2;
-                } else if (position == 2) {
-                    selected = fragment3;
-                }
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
+                pa.setCurrentItem(tab.getPosition());
+                Log.d("Tab","Selected"+tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                Log.d("Tab","Unselected"+tab.getPosition());
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                Log.d("Tab","Reselected"+tab.getPosition());
 
             }
         });
+
+        pa.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.getTabAt(position).select();
+            }
+        });
     }
+
+    private class ViewStateAdapter extends FragmentStateAdapter {
+
+        public ViewStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            // Hardcoded in this order, you'll want to use lists and make sure the titles match
+            switch (position) {
+                case 0:
+                    return new myFragment1();
+                case 1:
+                    return new myFragment2();
+                case 2:
+                    return new myFragment3();
+                default:
+                    return new myFragment1();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return 3;
+        }
+    }
+
 }
