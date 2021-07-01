@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -18,11 +20,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private PermissionSupport permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        permissionCheck();
 
         FragmentManager fm = getSupportFragmentManager();
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -57,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
+    }
+
+    // 권한 체크
+    private void permissionCheck(){
+        // SDK 23 버전 이하에서는 permission 필요 없음
+        if(Build.VERSION.SDK_INT >= 23){
+            permission = new PermissionSupport(this, this);
+
+            // 권한 체크 후 리턴이 false로 돌아오면
+            if (!permission.checkPermission()){
+                // 권한 요청
+                permission.requestPermission();
+            }
+        }
     }
 
     private class ViewStateAdapter extends FragmentStateAdapter {
