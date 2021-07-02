@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 
-public class DicAdapter extends RecyclerView.Adapter<DicAdapter.MyViewHolder>{
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder>{
     private ArrayList<ContactItem> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -25,7 +25,7 @@ public class DicAdapter extends RecyclerView.Adapter<DicAdapter.MyViewHolder>{
         }
     }
 
-    public DicAdapter(ArrayList<ContactItem> myData){
+    public ContactAdapter(ArrayList<ContactItem> myData){
         this.mDataset = myData;
     }
 
@@ -39,7 +39,7 @@ public class DicAdapter extends RecyclerView.Adapter<DicAdapter.MyViewHolder>{
 
 
     @Override
-    public void onBindViewHolder(@NonNull DicAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ContactAdapter.MyViewHolder holder, int position) {
         holder.name.setText(mDataset.get(position).getUsername());
         holder.phone.setText(mDataset.get(position).getPhonenumber());
     }

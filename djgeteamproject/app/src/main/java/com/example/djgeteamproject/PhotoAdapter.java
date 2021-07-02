@@ -1,12 +1,8 @@
 package com.example.djgeteamproject;
 
-import android.content.ContentUris;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.djgeteamproject.ImageUrl;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {

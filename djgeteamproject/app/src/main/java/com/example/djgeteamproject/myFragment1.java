@@ -1,17 +1,10 @@
 package com.example.djgeteamproject;
 
-import android.Manifest;
-import android.content.ContentProvider;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,19 +14,16 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 
 public class myFragment1 extends Fragment {
 
     private ArrayList<ContactItem> contactslist = new ArrayList<>();
     private RecyclerView recyclerView;
-    private DicAdapter mAdapter;
+    private ContactAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +34,7 @@ public class myFragment1 extends Fragment {
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new DicAdapter(contactslist);
+        mAdapter = new ContactAdapter(contactslist);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
