@@ -1,9 +1,15 @@
 package com.example.djgeteamproject;
 
+import android.Manifest;
+import android.content.ContentProvider;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +21,17 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 public class myFragment1 extends Fragment {
 
-    private ArrayList<Dictonary> contactslist = new ArrayList<>();
+    private ArrayList<ContactItem> contactslist = new ArrayList<>();
     private RecyclerView recyclerView;
     private DicAdapter mAdapter;
 
@@ -53,51 +62,76 @@ public class myFragment1 extends Fragment {
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
-        contactslist = getContactList();
 
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
-        contactslist.add(new Dictonary("A","12341234"));
+        getContactList();
+
+//        contactslist.add(new ContactItem("gaeun", "01050552279"));
+//
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
+//        contactslist.add(new Dictonary("A","12341234"));
     }
 
-    public ArrayList getContactList(){
+    private void getContactList() {
+
+        contactslist.add(new ContactItem("gaeun", "01050552279"));
+
+        // Initialize uri
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        // String projection
         String[] projection = new String[] {
-                ContactsContract.CommonDataKinds.Phone.NUMBER,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.PHOTO_ID,
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+            ContactsContract.CommonDataKinds.Phone._ID
         };
-        String[] selectionArgs = null;
-        String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "COLLATE LOCALIZED ASC";
+        // Selection
+//        String[] selectionArgs = null;
+        // Sort by ascending
+        String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC";
+        // Initialize cursor
+        contactslist.add(new ContactItem("dongjae", "01071661834"));
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, sortOrder);
 
-        Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(uri, projection, null, selectionArgs, sortOrder);
+        LinkedHashSet<ContactItem> hashlist = new LinkedHashSet<>();
+        // Check condition
+        if(cursor.moveToFirst()) {
+            do {
+                ContactItem contactItem = new ContactItem();
+                contactItem.setUsername(cursor.getString(0));
+                contactItem.setPhonenumber(cursor.getString(1));
+                contactItem.setPhoto_id(cursor.getLong(2));
+                contactItem.setPerson_id(cursor.getLong(3));
+                contactItem.setId(cursor.getInt(4));
 
-        if(cursor.moveToFirst()){
-            do{
-                Dictonary dictonary = new Dictonary(projection[0], projection[1]);
-                contactslist.add(dictonary);
+                hashlist.add(contactItem);
             } while (cursor.moveToNext());
         }
-        ArrayList<Dictonary> dictonarys = new ArrayList<>();
-        for (int i=0; i< dictonarys.size(); i++){
-            dictonarys.get(i).setId(i);
+        ArrayList<ContactItem> contactItems = new ArrayList<ContactItem>(hashlist);
+        for (int i=0; i < contactItems.size(); i++) {
+            contactItems.get(i).setId(i);
         }
-        return dictonarys;
-    };
+        contactslist = contactItems;
+    }
+
+
+
 }

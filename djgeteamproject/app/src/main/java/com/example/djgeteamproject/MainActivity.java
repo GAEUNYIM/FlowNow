@@ -2,16 +2,25 @@ package com.example.djgeteamproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.Arrays;
@@ -64,15 +73,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // 권한 체크
-    private void permissionCheck(){
-        // SDK 23 버전 이하에서는 permission 필요 없음
+    private void permissionCheck() {
         if(Build.VERSION.SDK_INT >= 23){
             permission = new PermissionSupport(this, this);
 
-            // 권한 체크 후 리턴이 false로 돌아오면
-            if (!permission.checkPermission()){
-                // 권한 요청
+            if(!permission.checkPermission()){
                 permission.requestPermission();
             }
         }
@@ -104,4 +109,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(!permission.permissionResult(requestCode, permissions, grantResults)) {
+            permission.requestPermission();
+        }
+    }
 }

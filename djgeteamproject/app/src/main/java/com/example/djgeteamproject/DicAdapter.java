@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class DicAdapter extends RecyclerView.Adapter<DicAdapter.MyViewHolder>{
-    private ArrayList<Dictonary> mDataset;
+    private ArrayList<ContactItem> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, phone;
@@ -25,7 +25,7 @@ public class DicAdapter extends RecyclerView.Adapter<DicAdapter.MyViewHolder>{
         }
     }
 
-    public DicAdapter(ArrayList<Dictonary> myData){
+    public DicAdapter(ArrayList<ContactItem> myData){
         this.mDataset = myData;
     }
 
