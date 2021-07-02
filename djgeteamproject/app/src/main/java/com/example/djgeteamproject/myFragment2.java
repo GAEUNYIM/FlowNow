@@ -1,5 +1,6 @@
 package com.example.djgeteamproject;
 
+import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,18 +40,12 @@ public class myFragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my2, container, false);
+        prepareData();
         imageView = (ImageView)v.findViewById(R.id.imageView);
         recyclerView = (RecyclerView)v.findViewById(R.id.recyclerView);
         gridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-
-//        ArrayList imageUrlList = prepareData();
-//        PhotoAdapter dataAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageUrlList);
-
-        prepareData();
         PhotoAdapter dataAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageslist);
-
-
         recyclerView.setAdapter(dataAdapter);
         return v;
     }
@@ -59,40 +54,26 @@ public class myFragment2 extends Fragment {
         private void prepareData(){
             getImageList();
 
-//        String imageUrls[] = {
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300",
-//                "https://picsum.photos/id/237/200/300"
-//        };
-//
-//        ArrayList imageUrlList = new ArrayList<>();
-//        for (int i = 0; i < imageUrls.length; i++) {
-//            ImageUrl imageUrl = new ImageUrl();
-//            imageUrl.setImageUrl(imageUrls[i]);
-//            imageUrlList.add(imageUrl);
-//        }
-//        Log.d("MainActivity", "List count: " + imageUrlList.size());
-//        return imageUrlList;
-
     }
+    public Uri getUriFromPath(String filePath) {
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, "_data = '" + filePath + "'", null, null);
 
+        cursor.moveToNext();
+        int id = cursor.getInt(cursor.getColumnIndex("_id"));
+        Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+
+        return uri;
+    }
     private void getImageList() {
-
-        System.out.println("<1>");
         // Initialize uri
         Uri uri =  android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         // String projection
         String[] projection = new String[] {
+                MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media._ID
+                MediaStore.Images.Media.DISPLAY_NAME
         };
-        System.out.println("<2>");
         // Selection
 //        String[] selectionArgs = null;
         // Sort by ascending
@@ -101,16 +82,16 @@ public class myFragment2 extends Fragment {
 
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, sortOrder);
 
-        System.out.println("<3>");
         LinkedHashSet<PhotoItem> hashlist = new LinkedHashSet<>();
         // Check condition
         if(cursor.moveToFirst()) {
             do {
                 PhotoItem photoItem = new PhotoItem();
-                photoItem.setData(cursor.getString(0));
-                photoItem.setDisplayName(cursor.getString(1));
-                photoItem.setId(cursor.getInt(2));
-
+                Uri photouri = getUriFromPath(cursor.getString(1));
+                photoItem.setData(photouri);
+                photoItem.setpath(cursor.getString(1));
+                photoItem.setDisplayName(cursor.getString(2));
+                photoItem.setId(cursor.getInt(0));
                 hashlist.add(photoItem);
             } while (cursor.moveToNext());
         }

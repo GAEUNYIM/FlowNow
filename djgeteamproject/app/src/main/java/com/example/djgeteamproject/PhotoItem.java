@@ -1,13 +1,16 @@
 package com.example.djgeteamproject;
 
-public class PhotoItem {
+import android.net.Uri;
 
-    private String data, displayName;
+public class PhotoItem {
+    private Uri data;
+    private String displayName;
+    private String path;
     private int id;
 
     PhotoItem(){}
 
-    public String getData() {
+    public Uri getData() {
         return data;
     }
 
@@ -17,8 +20,9 @@ public class PhotoItem {
 
     public int getId(int id){ return id; }
 
+    public String getpath() {return path;}
 
-    public void setData(String username) {
+    public void setData(Uri username) {
         this.data = data;
     }
 
@@ -26,8 +30,10 @@ public class PhotoItem {
 
     public void setId(int id){ this.id = id;}
 
-    public PhotoItem(String data, String displayName) {
+    public void setpath(String dpath) {this.path = dpath;}
+    public PhotoItem(Uri data, String displayName, String path) {
         this.data = data;
         this.displayName = displayName;
+        this.path = path;
     }
 }
