@@ -21,6 +21,8 @@ public class PermissionSupport {
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.WRITE_CONTACTS,
             Manifest.permission.GET_ACCOUNTS,
+            Manifest.permission.INTERNET,
+            Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
     private List permissionList;

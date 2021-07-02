@@ -13,12 +13,12 @@ import com.example.djgeteamproject.ImageUrl;
 import java.util.ArrayList;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
-    private ArrayList<ImageUrl> imageUrls;
+    private ArrayList<PhotoItem> imageslist;
     private Context context;
 
-    public PhotoAdapter(Context context, ArrayList<ImageUrl> imageUrls) {
+    public PhotoAdapter(Context context, ArrayList<PhotoItem> list) {
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.imageslist = list;
 
     }
 
@@ -36,12 +36,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
      */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Glide.with(context).load(imageUrls.get(i).getImageUrl()).into(viewHolder.img);
+        Glide.with(context).load(imageslist.get(i).getData()).into(viewHolder.img);
     }
 
     @Override
     public int getItemCount() {
-        return imageUrls.size();
+        return imageslist.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
