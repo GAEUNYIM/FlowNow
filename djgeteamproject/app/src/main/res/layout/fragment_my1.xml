@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/toptext"
         android:layout_width="match_parent"
-        android:layout_height="10pt"
+        android:layout_height="12pt"
         android:text="이름         전화번호"
         android:textSize="10pt"
         app:layout_constraintTop_toTopOf="parent"

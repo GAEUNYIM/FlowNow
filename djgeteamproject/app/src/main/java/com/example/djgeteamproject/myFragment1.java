@@ -52,7 +52,6 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         refreshview = v.findViewById(R.id.refresh_layout);
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
         refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -67,6 +66,7 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
                         refreshview.setRefreshing(false);
                     }
                 }, 500);
+                ((MainActivity)getActivity()).refreshfrag1();
 
             }
         });

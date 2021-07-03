@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.adapter.FragmentViewHolder;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     private PermissionSupport permission;
     private ViewPager2 viewpager2;
+    private ViewStateAdapter sa;
+
+    private myFragment1 frag1;
+    private myFragment2 frag2;
+    private myFragment3 frag3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         final ViewPager2 pa = findViewById(R.id.viewPager);
         viewpager2 = pa;
-        ViewStateAdapter sa = new ViewStateAdapter(fm, getLifecycle());
-
+        sa = new ViewStateAdapter(fm, getLifecycle());
         pa.setAdapter(sa);
 
 
@@ -86,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewStateAdapter extends FragmentStateAdapter {
 
-        public ViewStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+        public ViewStateAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle){
             super(fragmentManager, lifecycle);
         }
 
@@ -96,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
             // Hardcoded in this order, you'll want to use lists and make sure the titles match
             switch (position) {
                 case 1:
-                    return new myFragment2();
+                    return frag2 = new myFragment2();
                 case 2:
-                    return new myFragment3();
+                    return frag3 = new myFragment3();
                 default:
-                    return new myFragment1();
+                    return frag1 = new myFragment1();
             }
         }
 
@@ -108,11 +116,26 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return 3;
         }
+
+        @Override
+        public long getItemId(int position) {
+            return super.getItemId(position);
+        }
+
+        @Override
+        public boolean containsItem(long itemId) {
+            return super.containsItem(itemId);
+        }
     }
 
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(!permission.permissionResult(requestCode, permissions, grantResults)) {
             permission.requestPermission();
         }
+    }
+
+    public void refreshfrag1(){
+        frag1.onDetach();
+        frag1.onAttach(getApplicationContext());
     }
 }
