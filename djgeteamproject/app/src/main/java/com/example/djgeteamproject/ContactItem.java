@@ -1,11 +1,13 @@
 package com.example.djgeteamproject;
 
+import android.net.Uri;
 import android.provider.ContactsContract;
 
 public class ContactItem {
 
     private String username, phonenumber;
-    private long photo_id=0, person_id=0;
+    private long person_id=0;
+    private long photo_id;
     private int id;
 
     ContactItem(){}

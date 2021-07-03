@@ -77,7 +77,7 @@ public class myFragment2 extends Fragment {
         // Selection
 //        String[] selectionArgs = null;
         // Sort by ascending
-        String sortOrder = MediaStore.Images.Media.DATE_ADDED + " ASC";
+        String sortOrder = MediaStore.Images.Media.DATE_ADDED + " DESC";
         // Initialize cursor
 
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, sortOrder);

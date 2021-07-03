@@ -10,22 +10,25 @@
     <TextView
         android:id="@+id/toptext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이름     전화번호"
+        android:layout_height="10pt"
+        android:text="이름         전화번호"
         android:textSize="10pt"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_below="@id/btn_product_add_product"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/btn_product_add_product"
-        app:layout_constraintTop_toBottomOf="@+id/toptext"
-        tools:layout_editor_absoluteX="0dp" />
-
+        android:layout_height="550dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:layout_below="@id/btn_product_add_product"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@id/btn_product_add_product"
+            app:layout_constraintTop_toBottomOf="@+id/toptext"
+            tools:layout_editor_absoluteX="0dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <Button
         android:id="@+id/btn_product_add_product"
         android:layout_width="match_parent"
@@ -36,6 +39,8 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+
 
 </LinearLayout>
 
