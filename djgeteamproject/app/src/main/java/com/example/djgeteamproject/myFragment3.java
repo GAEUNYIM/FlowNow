@@ -2,6 +2,7 @@ package com.example.djgeteamproject;
 
 import android.content.ContentUris;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,12 +18,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
 public class myFragment3 extends Fragment implements View.OnClickListener{
 
     View v = null;
+    DrawingView drawingView;
+
     boolean fix = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,12 +77,32 @@ public class myFragment3 extends Fragment implements View.OnClickListener{
                 transparency(seekBar.getProgress());
             }
         });
+
+        drawingView = v.findViewById(R.id.drawingView);
+
+        ImageButton[] colorImageButtons = new ImageButton[3];
+
+        Button resetButton, saveButton;
+
+        colorImageButtons[0] = (ImageButton) v.findViewById(R.id.blackColorBtn);
+        colorImageButtons[1] = (ImageButton) v.findViewById(R.id.redColorBtn);
+        colorImageButtons[2] = (ImageButton) v.findViewById(R.id.blueColorBtn);
+        for (ImageButton colorImageButton : colorImageButtons) {
+            colorImageButton.setOnClickListener(this);
+        }
+
+        resetButton = (Button) v.findViewById(R.id.resetBtn);
+        resetButton.setOnClickListener(this);
+        saveButton = (Button) v.findViewById(R.id.saveBtn);
+        saveButton.setOnClickListener(this);
+
         return v;
     }
 
     public void transparency(int trans){
         v.findViewById(R.id.frag3imageview).setAlpha(1-(float)trans/100);
     }
+
     public void onClick(View view){
         int id = view.getId();
         if(id==R.id.selectphotobutton){
@@ -92,6 +116,24 @@ public class myFragment3 extends Fragment implements View.OnClickListener{
             else{
                 ((MainActivity) getActivity()).fixviewpager(fix = true);
             }
+        }
+
+        switch (id) {
+            case R.id.blackColorBtn:
+                drawingView.setColor(Color.BLACK);
+                break;
+            case R.id.redColorBtn:
+                drawingView.setColor(Color.RED);
+                break;
+            case R.id.blueColorBtn:
+                drawingView.setColor(Color.BLUE);
+                break;
+            case R.id.resetBtn:
+                drawingView.reset();
+                break;
+            case R.id.saveBtn:
+                drawingView.save(getContext()); // may need to fix
+                break;
         }
     }
 

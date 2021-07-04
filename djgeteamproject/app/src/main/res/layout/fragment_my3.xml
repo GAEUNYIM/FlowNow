@@ -1,31 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/frag3imageview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="490dp"
-        android:alpha="0.5"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="투명도"/>
-    <SeekBar
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/selectphotobutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select Photo"/>
-    <Button
-        android:id="@+id/fixbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fix View"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp" >
+
+            <com.example.djgeteamproject.DrawingView
+                android:id="@+id/drawingView"
+                android:layout_width="match_parent"
+                android:layout_height="490dp" />
+
+            <ImageView
+                android:id="@+id/frag3imageview"
+                android:layout_width="match_parent"
+                android:layout_height="490dp"
+                android:layout_weight="8"
+                android:alpha="0.5"/>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+
+            <ImageButton
+                android:id="@+id/blackColorBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:contentDescription="Black Color Button"
+                tools:ignore="HardcodedText,NestedWeights" />
+
+            <ImageButton
+                android:id="@+id/redColorBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#FF0000"
+                android:contentDescription="Red Color Button"
+                tools:ignore="HardcodedText" />
+
+
+            <ImageButton
+                android:id="@+id/blueColorBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#0000ff"
+                android:contentDescription="Blue Color Button"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Reset"
+            tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Save"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="투명도"/>
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/selectphotobutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Photo"/>
+        <Button
+            android:id="@+id/fixbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fix View"/>
+
+    </LinearLayout>
+
 </LinearLayout>
