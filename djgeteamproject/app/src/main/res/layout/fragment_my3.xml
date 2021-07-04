@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".myFragment3">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Update blank fragment layout -->
-    <View
+    <ImageView
+        android:id="@+id/frag3imageview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frag3view"/>
-
-</FrameLayout>
+        android:layout_height="490dp"
+        android:alpha="0.5"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="투명도"/>
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/selectphotobutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Photo"/>
+    <Button
+        android:id="@+id/fixbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fix View"/>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +20,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+
+import static androidx.fragment.app.FragmentKt.setFragmentResult;
 
 
 public class myFragment2 extends Fragment {
@@ -38,7 +42,6 @@ public class myFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my2, container, false);
         prepareData();
         imageView = (ImageView)v.findViewById(R.id.imageView);
@@ -47,6 +50,19 @@ public class myFragment2 extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         PhotoAdapter dataAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageslist);
         recyclerView.setAdapter(dataAdapter);
+        dataAdapter.setphotolicklistener(new PhotoAdapter.photoclicklistener(){
+            @Override
+            public void onPhotoClick(View v, int position) {
+                if(((MainActivity)getActivity()).getisSelect()){
+                    Log.e("Frag2", "PhotoSelected "+position);
+                    String imagepath = imageslist.get(position).getpath();
+                    Bundle result = new Bundle();
+                    result.putString("bundleKey", imagepath);
+                    getParentFragmentManager().setFragmentResult("key", result);
+                    ((MainActivity)getActivity()).gotoFrag3();
+                }
+            }
+        });
         return v;
     }
 
@@ -55,6 +71,7 @@ public class myFragment2 extends Fragment {
             getImageList();
 
     }
+
     public Uri getUriFromPath(String filePath) {
         Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, "_data = '" + filePath + "'", null, null);

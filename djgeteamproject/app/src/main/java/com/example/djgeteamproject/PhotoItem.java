@@ -18,7 +18,7 @@ public class PhotoItem {
         return displayName;
     }
 
-    public int getId(int id){ return id; }
+    public int getId(){ return id; }
 
     public String getpath() {return path;}
 

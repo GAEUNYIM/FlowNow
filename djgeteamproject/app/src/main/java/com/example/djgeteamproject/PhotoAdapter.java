@@ -39,6 +39,16 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         return imageslist.size();
     }
 
+    public interface photoclicklistener {
+        void onPhotoClick(View v,int position);
+    }
+
+    private photoclicklistener mListener = null;
+
+    public void setphotolicklistener(photoclicklistener listener){
+        this.mListener = listener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
@@ -46,6 +56,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         public ViewHolder(View view) {
             super(view);
             img = view.findViewById(R.id.imageView);
+
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    int pos = getAbsoluteAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if (mListener != null){
+                            mListener.onPhotoClick(v,pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -19,15 +20,18 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private PermissionSupport permission;
     private ViewStateAdapter sa;
-
+    private ViewPager2 pa;
     private myFragment1 frag1;
     private myFragment2 frag2;
     private myFragment3 frag3;
+    private boolean isSelect=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
-        final ViewPager2 pa = findViewById(R.id.viewPager);
+        pa = findViewById(R.id.viewPager);
         sa = new ViewStateAdapter(fm, getLifecycle());
         pa.setAdapter(sa);
 
@@ -110,10 +114,6 @@ public class MainActivity extends AppCompatActivity {
             return super.getItemId(position);
         }
 
-        @Override
-        public boolean containsItem(long itemId) {
-            return super.containsItem(itemId);
-        }
     }
 
     public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -137,5 +137,24 @@ public class MainActivity extends AppCompatActivity {
         frag2.onAttach(getApplicationContext());
     }
 
+    public void gotoFrag2(){
+        setisSelect(true);
+        fixviewpager(false);
+        pa.setCurrentItem(1);
+    }
+    public void gotoFrag3(){
+        setisSelect(false);
+        pa.setCurrentItem(2);
+    }
+    public boolean getisSelect(){
+        return isSelect;
+    }
 
+    public void setisSelect(boolean s){
+        isSelect = s;
+    }
+
+    public void fixviewpager(boolean f){
+        pa.setUserInputEnabled(f);
+    }
 }
