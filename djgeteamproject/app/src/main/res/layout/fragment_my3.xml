@@ -19,12 +19,12 @@
             <com.example.djgeteamproject.DrawingView
                 android:id="@+id/drawingView"
                 android:layout_width="match_parent"
-                android:layout_height="490dp" />
+                android:layout_height="match_parent" />
 
             <ImageView
                 android:id="@+id/frag3imageview"
                 android:layout_width="match_parent"
-                android:layout_height="490dp"
+                android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:alpha="0.5"/>
         </FrameLayout>
@@ -32,12 +32,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
+            android:layout_height="100dp"
+            android:orientation="horizontal" >
 
             <ImageButton
                 android:id="@+id/blackColorBtn"
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -47,7 +47,7 @@
 
             <ImageButton
                 android:id="@+id/redColorBtn"
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -55,10 +55,9 @@
                 android:contentDescription="Red Color Button"
                 tools:ignore="HardcodedText" />
 
-
             <ImageButton
                 android:id="@+id/blueColorBtn"
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -69,19 +68,17 @@
 
         <Button
             android:id="@+id/resetBtn"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
             android:text="Reset"
             tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
 
         <Button
             android:id="@+id/saveBtn"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
             android:text="Save"
             tools:ignore="ButtonStyle,HardcodedText" />
 
