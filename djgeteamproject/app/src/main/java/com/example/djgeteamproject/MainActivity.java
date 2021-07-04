@@ -1,40 +1,28 @@
 package com.example.djgeteamproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.adapter.FragmentViewHolder;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+
+
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private PermissionSupport permission;
-    private ViewPager2 viewpager2;
     private ViewStateAdapter sa;
 
     private myFragment1 frag1;
@@ -50,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         final ViewPager2 pa = findViewById(R.id.viewPager);
-        viewpager2 = pa;
         sa = new ViewStateAdapter(fm, getLifecycle());
         pa.setAdapter(sa);
 
@@ -80,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
+
     }
 
     private void permissionCheck() {
@@ -138,4 +126,16 @@ public class MainActivity extends AppCompatActivity {
         frag1.onDetach();
         frag1.onAttach(getApplicationContext());
     }
+
+    public void refreshfrag2(){
+        frag2.onDetach();
+        frag2.onAttach(getApplicationContext());
+    }
+
+    public void refreshfrag3(){
+        frag2.onDetach();
+        frag2.onAttach(getApplicationContext());
+    }
+
+
 }

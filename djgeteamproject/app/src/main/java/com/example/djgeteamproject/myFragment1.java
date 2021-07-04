@@ -94,9 +94,6 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getContactList() {
-
-        contactslist.add(new ContactItem("gaeun", "01050552279"));
-
         // Initialize uri
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         // String projection
@@ -112,11 +109,9 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
         // Sort by ascending
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC";
         // Initialize cursor
-        contactslist.add(new ContactItem("dongjae", "01071661834"));
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, sortOrder);
-
-        LinkedHashSet<ContactItem> hashlist = new LinkedHashSet<>();
         // Check condition
+        contactslist.clear();
         if(cursor.moveToFirst()) {
             do {
                 ContactItem contactItem = new ContactItem();
@@ -125,10 +120,11 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
                 contactItem.setPhoto_id(cursor.getLong(2));
                 contactItem.setPerson_id(cursor.getLong(3));
                 contactItem.setId(cursor.getInt(4));
-                hashlist.add(contactItem);
+                contactslist.add(contactItem);
             } while (cursor.moveToNext());
         }
-        ArrayList<ContactItem> contactItems = new ArrayList<ContactItem>(hashlist);
+        ArrayList<ContactItem> contactItems = new ArrayList<ContactItem>(contactslist);
+        Log.e("Num of contacts", Integer.toString(contactItems.size()));
         for (int i=0; i < contactItems.size(); i++) {
             contactItems.get(i).setId(i);
         }
