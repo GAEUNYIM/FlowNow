@@ -159,4 +159,6 @@ public class MainActivity extends AppCompatActivity {
     public void fixviewpager(boolean f){
         pa.setUserInputEnabled(f);
     }
+
+    public void fixView() {pa.setUserInputEnabled(false);}
 }

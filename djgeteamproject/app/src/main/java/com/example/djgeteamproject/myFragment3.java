@@ -19,7 +19,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.annotation.SuppressLint;
+import androidx.viewpager2.widget.ViewPager2;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class myFragment3 extends Fragment implements View.OnClickListener {
 
@@ -43,11 +48,13 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
         ImageView imgview = v.findViewById(R.id.frag3imageview);
         Button selectbutton = (Button) v.findViewById(R.id.selectphotobutton);
-        Button fixbutton = (Button) v.findViewById(R.id.fixbutton);
-        SeekBar seekbar = v.findViewById(R.id.seekbar);
         SeekBar acceleration = v.findViewById(R.id.acceleration);
         selectbutton.setOnClickListener(this);
-        fixbutton.setOnClickListener(this);
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        Switch fixSwitch = (Switch) v.findViewById(R.id.fix_switch);
+        fixSwitch.setOnCheckedChangeListener(new visibilitySwitchListener());
+
+        SeekBar seekbar = v.findViewById(R.id.seekbar);
         getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
@@ -103,8 +110,6 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
         ImageButton[] colorImageButtons = new ImageButton[3];
 
-        Button resetButton, saveButton;
-
         colorImageButtons[0] = (ImageButton) v.findViewById(R.id.blackColorBtn);
         colorImageButtons[1] = (ImageButton) v.findViewById(R.id.redColorBtn);
         colorImageButtons[2] = (ImageButton) v.findViewById(R.id.blueColorBtn);
@@ -112,11 +117,10 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             colorImageButton.setOnClickListener(this);
         }
 
-        resetButton = (Button) v.findViewById(R.id.resetBtn);
-        resetButton.setOnClickListener(this);
-        saveButton = (Button) v.findViewById(R.id.saveBtn);
+        Button resetButton;
+        FloatingActionButton saveButton;
+        saveButton = (FloatingActionButton) v.findViewById(R.id.saveBtn);
         saveButton.setOnClickListener(this);
-
         return v;
     }
 
@@ -130,7 +134,7 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             Log.e("Frag3", "ButtonPressed");
             ((MainActivity) getActivity()).gotoFrag2();
         }
-        if (id == R.id.fixbutton) {
+        if (id == R.id.fix_switch) {
             if (fix) {
                 ((MainActivity) getActivity()).fixviewpager(fix = false);
             } else {
@@ -169,5 +173,17 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
     public void setAcceleration(int acc){
         float a = (float) acc/5;
         drawingView.setacc(a);
+    }
+
+    class visibilitySwitchListener implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                ((MainActivity) getActivity()).fixviewpager(fix = false);
+                ((MainActivity) getActivity()).fixView();
+            } else {
+                ((MainActivity) getActivity()).fixviewpager(fix = true);
+            }
+        }
     }
 }

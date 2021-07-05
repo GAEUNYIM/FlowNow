@@ -163,6 +163,12 @@ public class DrawingView extends View implements View.OnTouchListener{
 
     // Save Function
     public void save(Context context) {
+        ArrayList<PaintPoint> savecursor = new ArrayList<PaintPoint>();
+        savecursor.add(0, cursor.get(0));
+        savecursor.add(1, cursor.get(1));
+        cursor.clear();
+        invalidate();
+
         this.setDrawingCacheEnabled(true);
         Bitmap screenshot = this.getDrawingCache();
 
@@ -194,6 +200,9 @@ public class DrawingView extends View implements View.OnTouchListener{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cursor.add(savecursor.get(0));
+        cursor.add(savecursor.get(1));
+        savecursor.clear();
         this.setDrawingCacheEnabled(false);
     }
 
