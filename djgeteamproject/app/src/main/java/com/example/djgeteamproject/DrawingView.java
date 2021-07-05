@@ -30,12 +30,15 @@ import java.util.Date;
 
 public class DrawingView extends View implements View.OnTouchListener{
     private ArrayList<PaintPoint> points = new ArrayList<PaintPoint>();
+    private ArrayList<PaintPoint> cursor = new ArrayList<PaintPoint>();
     private int color = Color.BLACK; // 선 색
     private int lineWith = 3; // 선 두께
+    private int cursorwith = 20; //커서 사이즈
     private float[] paintvector = {(float)0.0, (float)0.0};
     private SensorManager sensorManager;
     private Sensor accsensor;
     private SensorEventListener acclistener;
+    private float acc=10;
     // View 를 Xml 에서 사용하기 위해선 3가지 생성자를 모두 정의 해주어야함
     // 정의 x -> Runtime Error
     @SuppressLint("ClickableViewAccessibility")
@@ -71,19 +74,18 @@ public class DrawingView extends View implements View.OnTouchListener{
     private class accListener implements SensorEventListener{
         @Override
         public void onSensorChanged(SensorEvent event) {
-            Log.i("SENSOR", "Acceleration changed.");
-            Log.i("SENSOR", "  X: " + paintvector[0]
-                    + ", Y: " + paintvector[1]);
-
+            //Log.i("SENSOR", "Acceleration changed.");
+            //Log.i("SENSOR", "  X: " + paintvector[0]
+            //        + ", Y: " + paintvector[1]);
             float accx = -event.values[0];
             float accy = event.values[1];
-            paintvector[0] += accx*0.18*10;
-            paintvector[1] += accy*0.18*10;
+            paintvector[0] += accx*0.18*acc;
+            paintvector[1] += accy*0.18*acc;
             if(paintvector[0]<0) {
                 paintvector[0] = 0;
             }
-            else if(paintvector[0]>1200){
-                paintvector[0]=1200;
+            else if(paintvector[0]>1000){
+                paintvector[0]=1000;
             }
             if(paintvector[1]<0){
                 paintvector[1] = 0;
@@ -95,6 +97,12 @@ public class DrawingView extends View implements View.OnTouchListener{
             p.setColor(color);
             p.setStrokeWidth(lineWith);
             points.add(new PaintPoint(paintvector[0], paintvector[1], true, p));
+            cursor.clear();
+            Paint cursorp = new Paint();
+            cursorp.setColor(color);
+            cursorp.setStrokeWidth(cursorwith);
+            cursor.add(new PaintPoint(paintvector[0]-10, paintvector[1]-10, true, cursorp));
+            cursor.add(new PaintPoint(paintvector[0]+10, paintvector[1]+10, true, cursorp));
             invalidate();
         }
 
@@ -108,19 +116,20 @@ public class DrawingView extends View implements View.OnTouchListener{
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_MOVE:
-                Paint p = new Paint();
-                p.setColor(color);
-                p.setStrokeWidth(lineWith);
-                points.add(new PaintPoint(motionEvent.getX(), motionEvent.getY(), true, p));
-                // 화면을 갱신함 -> onDraw()를 호출
-                invalidate();
-                break;
-            // 아래 작업을 안하게 되면 선이 어색하게 그려지는 현상 발생
-            // ex) 점을 찍고 이동한 뒤에 점을 찍는 경우
+                // 아래 작업을 안하게 되면 선이 어색하게 그려지는 현상 발생
+                // ex) 점을 찍고 이동한 뒤에 점을 찍는 경우
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_DOWN:
-                points.add(new PaintPoint(motionEvent.getX(), motionEvent.getY(), false, null));
-                break;
+                paintvector[0] = motionEvent.getX();
+                paintvector[1] = motionEvent.getY();
+                cursor.clear();
+                Paint p = new Paint();
+                p.setColor(color);
+                p.setStrokeWidth(cursorwith);
+                cursor.add(new PaintPoint(paintvector[0]-10, paintvector[1]-10, true, p));
+                cursor.add(new PaintPoint(paintvector[0]+10, paintvector[1]+10, true, p));
+                points.add(new PaintPoint(paintvector[0], paintvector[1], false, null));
+                invalidate();
         }
         // System.out.println("DrawingView.onTouch - " + points);
         // return false 로 하게되면 이벤트가 한번 발생하고 종료 -> 점을 그림
@@ -136,11 +145,19 @@ public class DrawingView extends View implements View.OnTouchListener{
             // canvas.drawLine( 이전 좌표, 현재 좌표, 선 속성 );
             canvas.drawLine(points.get(i - 1).getX(), points.get(i - 1).getY(), points.get(i).getX(), points.get(i).getY(), points.get(i).getPaint());
         }
+        for (int i = 1; i < cursor.size(); i++) {
+            if (!cursor.get(i).isDraw()) continue;
+            // 선을 그려줌
+            // canvas.drawLine( 이전 좌표, 현재 좌표, 선 속성 );
+            canvas.drawLine(cursor.get(i - 1).getX(), cursor.get(i - 1).getY(), cursor.get(i).getX(), cursor.get(i).getY(), cursor.get(i).getPaint());
+        }
     }
 
     // Reset Function
     public void reset() {
         points.clear(); // PaintPoint ArrayList Clear
+        paintvector[0]=0;
+        paintvector[1]=0;
         invalidate(); // 화면을 갱신함 -> onDraw()를 호출
     }
 
@@ -194,5 +211,9 @@ public class DrawingView extends View implements View.OnTouchListener{
 
     public void setLineWith(int lineWith) {
         this.lineWith = lineWith;
+    }
+
+    public void setacc(float acc){
+        this.acc = acc;
     }
 }

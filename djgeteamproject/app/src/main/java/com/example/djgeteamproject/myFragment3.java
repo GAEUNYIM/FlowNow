@@ -25,6 +25,7 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
     View v = null;
     DrawingView drawingView;
+    DrawingView cursor;
     boolean fix = true;
     private boolean isgetgyro = true;
 
@@ -44,6 +45,7 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         Button selectbutton = (Button) v.findViewById(R.id.selectphotobutton);
         Button fixbutton = (Button) v.findViewById(R.id.fixbutton);
         SeekBar seekbar = v.findViewById(R.id.seekbar);
+        SeekBar acceleration = v.findViewById(R.id.acceleration);
         selectbutton.setOnClickListener(this);
         fixbutton.setOnClickListener(this);
         getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
@@ -77,6 +79,23 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.d("Frag3", String.format("onStopTrackingTouch 값 변경 종료: progress [%d]", seekBar.getProgress()));
                 transparency(seekBar.getProgress());
+            }
+        });
+        acceleration.setProgress(50);
+        acceleration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                setAcceleration(progress);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                setAcceleration(seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                setAcceleration(seekBar.getProgress());
             }
         });
 
@@ -147,4 +166,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         return uri;
     }
 
+    public void setAcceleration(int acc){
+        float a = (float) acc/5;
+        drawingView.setacc(a);
+    }
 }
