@@ -30,9 +30,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
     View v = null;
     DrawingView drawingView;
-    DrawingView cursor;
     boolean fix = true;
-    private boolean isgetgyro = true;
+    private boolean isGmode = false; // true at gyro Mode; false at pencil Mode
 
 
     @Override
@@ -45,6 +44,11 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_my3, container, false);
+
+        Button pModeButton = (Button) v.findViewById(R.id.pencilmode);
+        pModeButton.setOnClickListener(this);
+        Button gModeButton = (Button) v.findViewById(R.id.gyromode);
+        gModeButton.setOnClickListener(this);
 
         ImageView imgview = v.findViewById(R.id.frag3imageview);
         Button selectbutton = (Button) v.findViewById(R.id.selectphotobutton);
@@ -141,6 +145,21 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             } else {
                 ((MainActivity) getActivity()).fixviewpager(fix = true);
             }
+        }
+        if (id == R.id.pencilmode) {
+            Log.e("Frag3", "Pencil Mode Button Pressed");
+            isGmode = false;
+        }
+        if (id == R.id.gyromode) {
+            Log.e("Frag3", "Gyro Mode Button Pressed");
+            if (isGmode) {
+                isGmode = false;
+                drawingView.setIsGmode(false);
+            }else {
+                isGmode = true;
+                drawingView.setIsGmode(true);
+            }
+
         }
 
         switch (id) {

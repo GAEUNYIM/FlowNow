@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -11,15 +11,34 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/fixtext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Fix View?"
+            android:textSize="9pt"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
         <Switch
             android:id="@+id/fix_switch"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="left" />
+            android:gravity="center"
+            android:layout_gravity="left"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Button
+            android:id="@+id/selectphotobutton"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:text="Select Photo"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/saveBtn"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:backgroundTint="@color/white"
@@ -29,89 +48,103 @@
             app:srcCompat="@android:drawable/ic_menu_save" />
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp" >
+
+        <com.example.djgeteamproject.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/frag3imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:alpha="0.5"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Edittor"
+        android:textSize="9pt" >
+    </TextView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:weightSum="3"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/pencilmode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#000000"
+            android:text="Pencil Mode" />
+
+        <Button
+            android:id="@+id/gyromode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_color_drawable"
+            android:textColor="#FFFFFF">
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/blackColorBtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#000000"
+            android:contentDescription="Black Color Button"
+            tools:ignore="HardcodedText,NestedWeights" />
+
+        <ImageButton
+            android:id="@+id/redColorBtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#FF0000"
+            android:contentDescription="Red Color Button"
+            tools:ignore="HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/blueColorBtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#0000ff"
+            android:contentDescription="Blue Color Button"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp" >
-
-            <com.example.djgeteamproject.DrawingView
-                android:id="@+id/drawingView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ImageView
-                android:id="@+id/frag3imageview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:alpha="0.5"/>
-        </FrameLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/blackColorBtn"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="#000000"
-                android:contentDescription="Black Color Button"
-                tools:ignore="HardcodedText,NestedWeights" />
-
-            <ImageButton
-                android:id="@+id/redColorBtn"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="#FF0000"
-                android:contentDescription="Red Color Button"
-                tools:ignore="HardcodedText" />
-
-            <ImageButton
-                android:id="@+id/blueColorBtn"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="#0000ff"
-                android:contentDescription="Blue Color Button"
-                tools:ignore="HardcodedText" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal" >
-            <Button
-                android:id="@+id/resetBtn"
-                android:layout_width="170dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:text="Reset"
-                tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Clarity"/>
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,18 +154,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal" >
-            <Button
-                android:id="@+id/selectphotobutton"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Select Photo"/>
-        </LinearLayout>
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:text="Reset"
+            tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
     </LinearLayout>
 
 </LinearLayout>
