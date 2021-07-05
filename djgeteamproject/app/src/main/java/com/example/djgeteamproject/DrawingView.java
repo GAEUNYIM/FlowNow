@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -24,29 +28,80 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DrawingView extends View implements View.OnTouchListener {
+public class DrawingView extends View implements View.OnTouchListener{
     private ArrayList<PaintPoint> points = new ArrayList<PaintPoint>();
     private int color = Color.BLACK; // 선 색
     private int lineWith = 3; // 선 두께
-
+    private float[] paintvector = {(float)0.0, (float)0.0};
+    private SensorManager sensorManager;
+    private Sensor accsensor;
+    private SensorEventListener acclistener;
     // View 를 Xml 에서 사용하기 위해선 3가지 생성자를 모두 정의 해주어야함
     // 정의 x -> Runtime Error
     @SuppressLint("ClickableViewAccessibility")
     public DrawingView(Context context) {
         super(context);
         this.setOnTouchListener(this);
+        sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
+        accsensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        acclistener = new accListener();
+        sensorManager.registerListener(acclistener,accsensor,sensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setOnTouchListener(this);
+        sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
+        accsensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        acclistener = new accListener();
+        sensorManager.registerListener(acclistener,accsensor,sensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     public DrawingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.setOnTouchListener(this);
+        sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
+        accsensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        acclistener = new accListener();
+        sensorManager.registerListener(acclistener,accsensor,sensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    private class accListener implements SensorEventListener{
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            Log.i("SENSOR", "Acceleration changed.");
+            Log.i("SENSOR", "  X: " + paintvector[0]
+                    + ", Y: " + paintvector[1]);
+
+            float accx = -event.values[0];
+            float accy = event.values[1];
+            paintvector[0] += accx*0.18*10;
+            paintvector[1] += accy*0.18*10;
+            if(paintvector[0]<0) {
+                paintvector[0] = 0;
+            }
+            else if(paintvector[0]>1200){
+                paintvector[0]=1200;
+            }
+            if(paintvector[1]<0){
+                paintvector[1] = 0;
+            }
+            else if(paintvector[1]>800){
+                paintvector[1] = 800;
+            }
+            Paint p = new Paint();
+            p.setColor(color);
+            p.setStrokeWidth(lineWith);
+            points.add(new PaintPoint(paintvector[0], paintvector[1], true, p));
+            invalidate();
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
     }
 
     @Override
