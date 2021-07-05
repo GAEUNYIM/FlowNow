@@ -2,6 +2,7 @@ package com.example.djgeteamproject;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -66,8 +67,9 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
                         refreshview.setRefreshing(false);
                     }
                 }, 500);
-                ((MainActivity)getActivity()).refreshfrag1();
-
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("position", 0);
+                startActivity(intent);
             }
         });
         return v;

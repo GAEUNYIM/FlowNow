@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Djgeteamproject"
         android:requestLegacyExternalStorage="true" >
+        <activity android:name=".Photoremoveactivity" android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

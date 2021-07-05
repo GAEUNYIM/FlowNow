@@ -1,6 +1,7 @@
 package com.example.djgeteamproject;
 
 import android.content.ContentUris;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -22,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.djgeteamproject.databinding.PhotoremovepopupBinding;
 
 import java.io.File;
 import java.io.Serializable;
@@ -71,14 +74,18 @@ public class myFragment2 extends Fragment {
             }
         });
 
+        dataAdapter.setphototouchlistener(new PhotoAdapter.phototouchlistener(){
+            @Override
+            public void onPhotoTouch(View v, int position) {
+                String imagepath = imageslist.get(position).getpath();
+                ((MainActivity)getActivity()).makepopup(imagepath);
+            }
+        });
         refreshview = v.findViewById(R.id.refresh_layout);
         refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onRefresh() {
-                prepareData();
-                mAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageslist);
-                recyclerView.setAdapter(mAdapter);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -86,7 +93,9 @@ public class myFragment2 extends Fragment {
                         refreshview.setRefreshing(false);
                     }
                 }, 500);
-                ((MainActivity)getActivity()).refreshfrag2();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("position", 1);
+                startActivity(intent);
             }
         });
 

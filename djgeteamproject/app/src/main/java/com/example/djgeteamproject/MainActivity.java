@@ -3,11 +3,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private myFragment1 frag1;
     private myFragment2 frag2;
     private myFragment3 frag3;
+    private int pos=0;
     private boolean isSelect=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         permissionCheck();
-
+        Intent intent = getIntent();
+        pos = intent.getIntExtra("position", 0);
         FragmentManager fm = getSupportFragmentManager();
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         pa = findViewById(R.id.viewPager);
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
-
+        pa.setCurrentItem(pos);
     }
 
     private void permissionCheck() {
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
         @Override
         public int getItemCount() {
             return 3;
@@ -122,22 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void refreshfrag1(){
-        frag1.onDetach();
-        frag1.onAttach(getApplicationContext());
-    }
-
-    public void refreshfrag2(){
-        System.out.println("<4>");
-        frag2.onDetach();
-        frag2.onAttach(getApplicationContext());
-        System.out.println("<5>");
-    }
-
-    public void refreshfrag3(){
-        frag2.onDetach();
-        frag2.onAttach(getApplicationContext());
-    }
+    FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
 
     public void gotoFrag2(){
         setisSelect(true);
@@ -161,4 +151,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fixView() {pa.setUserInputEnabled(false);}
+
+    public void makepopup(String path){
+        Bundle filepath = new Bundle();
+        filepath.putString("data", path);
+        Photoremovefragment pf = Photoremovefragment.getInstance();
+        pf.setArguments(filepath);
+        pf.show(getSupportFragmentManager(), "photoremove");
+    }
 }

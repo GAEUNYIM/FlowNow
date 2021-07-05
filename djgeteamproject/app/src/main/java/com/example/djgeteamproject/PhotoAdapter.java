@@ -3,7 +3,9 @@ package com.example.djgeteamproject;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         this.mListener = listener;
     }
 
+    public interface phototouchlistener {
+        void onPhotoTouch(View v, int position);
+    }
+
+    private phototouchlistener mphototouchListener = null;
+
+    public void setphototouchlistener(phototouchlistener listener) {this.mphototouchListener = listener; }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
@@ -64,6 +74,17 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                     if(pos != RecyclerView.NO_POSITION){
                         if (mListener != null){
                             mListener.onPhotoClick(v,pos);
+                        }
+                    }
+                }
+            });
+            view.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                @Override
+                public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                    int pos = getAbsoluteAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if (mphototouchListener != null){
+                            mphototouchListener.onPhotoTouch(v,pos);
                         }
                     }
                 }
