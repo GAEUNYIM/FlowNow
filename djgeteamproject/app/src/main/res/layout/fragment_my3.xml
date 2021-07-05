@@ -79,17 +79,17 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/pencilmode"
-            android:layout_width="wrap_content"
+            android:id="@+id/Evaluation"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#000000"
-            android:text="Pencil Mode" />
+            android:text="Evaluation" />
 
         <Button
             android:id="@+id/gyromode"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"

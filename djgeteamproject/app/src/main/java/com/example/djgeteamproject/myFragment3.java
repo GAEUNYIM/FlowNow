@@ -2,7 +2,9 @@ package com.example.djgeteamproject;
 
 import android.content.ContentUris;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,11 +22,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.annotation.SuppressLint;
-import androidx.viewpager2.widget.ViewPager2;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class myFragment3 extends Fragment implements View.OnClickListener {
 
@@ -33,7 +37,7 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
     DrawingView cursor;
     boolean fix = true;
     private boolean isGmode = false; // true at gyro Mode; false at pencil Mode
-
+    private Bitmap selectedphoto = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,8 +50,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_my3, container, false);
 
-        Button pModeButton = (Button) v.findViewById(R.id.pencilmode);
-        pModeButton.setOnClickListener(this);
+        Button evalbutton = (Button) v.findViewById(R.id.Evaluation);
+        evalbutton.setOnClickListener(this);
         Button gModeButton = (Button) v.findViewById(R.id.gyromode);
         gModeButton.setOnClickListener(this);
 
@@ -69,6 +73,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
                 Uri item = getUriFromPath(result);
                 if (item != null) {
                     imgview.setImageURI(item);
+                    BitmapDrawable d = (BitmapDrawable) imgview.getDrawable();
+                    selectedphoto = d.getBitmap();
                     Log.e("Frag3", "Success");
                 }
             }
@@ -148,9 +154,15 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             }
         }
 
-        if (id == R.id.pencilmode) {
-            Log.e("Frag3", "Pencil Mode Button Pressed");
-            isGmode = false;
+        if (id == R.id.Evaluation) {
+            Log.e("Frag3", "Evaluation");
+            if(selectedphoto != null){
+                drawingView.setDrawingCacheEnabled(true);
+                Bitmap drawbitmap = drawingView.getDrawingCache();
+                double resultcos = evalBitmap(drawbitmap, selectedphoto);
+                Log.e("Evaluated : ", Double.toString(resultcos));
+                drawingView.setDrawingCacheEnabled(false);
+            }
         }
         if (id == R.id.gyromode) {
             Log.e("Frag3", "Gyro Mode Button Pressed");
@@ -207,5 +219,56 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).fixviewpager(fix = true);
             }
         }
+    }
+
+    public double evalBitmap(Bitmap bitmap1, Bitmap bitmap2){
+        int width = bitmap1.getWidth() > bitmap2.getWidth() ? bitmap2.getWidth() : bitmap1.getWidth();
+        int height = bitmap1.getHeight() > bitmap2.getHeight() ? bitmap2.getHeight() : bitmap1.getHeight();
+        Bitmap b1 = Bitmap.createScaledBitmap(bitmap1, width, height, true);
+        Bitmap b2 = Bitmap.createScaledBitmap(bitmap2, width, height, true);
+        ArrayList<Integer> arr1 = new ArrayList<Integer>();
+        ArrayList<Integer> arr2 = new ArrayList<Integer>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                arr1.add(b1.getPixel(x,y));
+                arr2.add(b2.getPixel(x,y));
+            }
+        }
+        Integer[] array1 = arr1.toArray(new Integer[0]);
+        Integer[] array2 = arr2.toArray(new Integer[0]);
+        double cos = GetCosineSimilarity(array1, array2);
+        return cos;
+    }
+    public double GetCosineSimilarity(Integer[] array1, Integer[] array2){
+        if(array1.length!= array2.length){
+            Log.e("Diff Lengtherror", "error occured");
+            return (float)0.0;
+        }
+        double dotproduct = 0;
+        double array1rms = 0;
+        double array2rms = 0;
+        double cos = 0;
+        double argb1 = 0;
+        double argb2 = 0;
+        for(int i=0; i<array1.length; i++){
+            for(int j=0;j<4;j++){
+                argb1 = (double) ((array1[i]&(0x000000ff<<(j*2*8)))>>(j*2*8));
+                argb2 = (double) ((array2[i]&(0x000000ff<<(j*2*8)))>>(j*2*8));
+                argb1 /= (double) 256;
+                argb2 /= (double) 256;
+                if(i==0){
+                    Log.e("ARGB", Double.toString(argb1));
+                }
+                dotproduct += argb1*argb2;
+                array1rms += argb1*argb1;
+                array2rms += argb2*argb2;
+            }
+
+        }
+        array1rms = Math.sqrt(array1rms);
+        array2rms = Math.sqrt(array2rms);
+        Log.e("EVAL", array1rms+" "+array2rms);
+        cos = (double)dotproduct / (array1rms * array2rms);
+        return cos;
     }
 }
