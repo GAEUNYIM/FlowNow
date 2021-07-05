@@ -32,7 +32,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="40dp"
             android:orientation="horizontal" >
 
             <ImageButton
@@ -66,40 +66,53 @@
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/resetBtn"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Reset"
-            tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
+            android:layout_height="60dp"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/resetBtn"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="Reset"
+                tools:ignore="ButtonStyle,HardcodedText,NestedWeights" />
 
-        <Button
-            android:id="@+id/saveBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Save"
-            tools:ignore="ButtonStyle,HardcodedText" />
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="Save"
+                tools:ignore="ButtonStyle,HardcodedText" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="투명도"/>
+            android:text="Clarity"/>
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/selectphotobutton"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Photo"/>
-        <Button
-            android:id="@+id/fixbutton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fix View"/>
+            android:layout_height="60dp"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/selectphotobutton"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Select Photo"/>
+            <Button
+                android:id="@+id/fixbutton"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Fix View"/>
+        </LinearLayout>
 
     </LinearLayout>
 

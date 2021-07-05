@@ -3,14 +3,18 @@ package com.example.djgeteamproject;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -33,12 +37,15 @@ public class myFragment2 extends Fragment {
     private ImageView imageView;
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
+    private PhotoAdapter mAdapter;
+    private SwipeRefreshLayout refreshview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,14 +70,31 @@ public class myFragment2 extends Fragment {
                 }
             }
         });
+
+        refreshview = v.findViewById(R.id.refresh_layout);
+        refreshview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onRefresh() {
+                prepareData();
+                mAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageslist);
+                recyclerView.setAdapter(mAdapter);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshview.setRefreshing(false);
+                    }
+                }, 500);
+                ((MainActivity)getActivity()).refreshfrag2();
+            }
+        });
+
         return v;
     }
 
-//    private ArrayList prepareData() {
-        private void prepareData(){
-            getImageList();
-
-    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void prepareData(){ getImageList(); }
 
     public Uri getUriFromPath(String filePath) {
         Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -82,6 +106,8 @@ public class myFragment2 extends Fragment {
 
         return uri;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getImageList() {
         // Initialize uri
         Uri uri =  android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;

@@ -70,7 +70,6 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
 
             }
         });
-
         return v;
     }
     public void onClick(View view){

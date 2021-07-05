@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
     private ArrayList<PhotoItem> imageslist;
     private Context context;
+
     public PhotoAdapter(Context context, ArrayList<PhotoItem> list) {
         this.context = context;
         this.imageslist = list;
-
     }
 
     @Override

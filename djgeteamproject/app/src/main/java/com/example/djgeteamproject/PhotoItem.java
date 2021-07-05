@@ -2,13 +2,13 @@ package com.example.djgeteamproject;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class PhotoItem {
     private Uri data;
     private String displayName;
     private String path;
     private int id;
-
-    PhotoItem(){}
 
     public Uri getData() {
         return data;
@@ -31,7 +31,7 @@ public class PhotoItem {
     public void setId(int id){ this.id = id;}
 
     public void setpath(String dpath) {this.path = dpath;}
-    public PhotoItem(Uri data, String displayName, String path) {
+    public PhotoItem() {
         this.data = data;
         this.displayName = displayName;
         this.path = path;

@@ -128,8 +128,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refreshfrag2(){
+        System.out.println("<4>");
         frag2.onDetach();
         frag2.onAttach(getApplicationContext());
+        System.out.println("<5>");
     }
 
     public void refreshfrag3(){
