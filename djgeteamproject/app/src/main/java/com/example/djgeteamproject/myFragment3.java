@@ -117,10 +117,11 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             colorImageButton.setOnClickListener(this);
         }
 
-        Button resetButton;
+        Button resetButton = v.findViewById(R.id.resetBtn);
         FloatingActionButton saveButton;
         saveButton = (FloatingActionButton) v.findViewById(R.id.saveBtn);
         saveButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
         return v;
     }
 
