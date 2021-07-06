@@ -1,6 +1,5 @@
 # djge
-몰입캠프 Week 1 과제로 'Tab 3개를 수행하는 어플리케이션'을 Android Studio 에서 구현하였다.
-Tab 1과 Tab 2는 공통과제이고, Tab3은 자유과제이다.
+몰입캠프 Week 1 과제로 'Tab 3개를 수행하는 어플리케이션'을 Android Studio 에서 구현하였다.  
 
 ## Team information
 #### Members : 이동재, 임가은
