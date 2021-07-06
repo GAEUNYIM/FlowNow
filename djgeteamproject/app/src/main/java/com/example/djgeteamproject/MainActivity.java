@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -14,15 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-
-
-
 import com.google.android.material.tabs.TabLayout;
 
-import org.jetbrains.annotations.NotNull;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         pa = findViewById(R.id.viewPager);
         sa = new ViewStateAdapter(fm, getLifecycle());
         pa.setAdapter(sa);
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -158,5 +149,21 @@ public class MainActivity extends AppCompatActivity {
         Photoremovefragment pf = Photoremovefragment.getInstance();
         pf.setArguments(filepath);
         pf.show(getSupportFragmentManager(), "photoremove");
+    }
+
+    public void makescorepopup(double score){
+        Bundle scbundle = new Bundle();
+        scbundle.putDouble("score", score);
+        Scoreviewpopup pf = Scoreviewpopup.getInstance();
+        pf.setArguments(scbundle);
+        pf.show(getSupportFragmentManager(), "scoreshow");
+    }
+
+    public void savescore(double score, String id){
+       writeNewUser(id, score);
+    }
+
+    private void writeNewUser(String userId, Double score) {
+        SaveScore user = new SaveScore(userId, score);
     }
 }

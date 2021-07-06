@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "141944010245",
+    "project_id": "flowgame-d2108",
+    "storage_bucket": "flowgame-d2108.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141944010245:android:b53f8b939ec14414c6ce6c",
+        "android_client_info": {
+          "package_name": "com.example.djgeteamproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141944010245-08efp0k748mbklafqcq9on41qjl315b8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoYYtZbzJkqNn2LiBW9s0hwIlvHXbzUN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141944010245-08efp0k748mbklafqcq9on41qjl315b8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

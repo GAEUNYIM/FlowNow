@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.annotation.SuppressLint;
@@ -27,7 +26,6 @@ import android.widget.Switch;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class myFragment3 extends Fragment implements View.OnClickListener {
@@ -50,13 +48,13 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_my3, container, false);
 
-        Button evalbutton = (Button) v.findViewById(R.id.Evaluation);
+        Button evalbutton = (Button) v.findViewById(R.id.evaluation);
         evalbutton.setOnClickListener(this);
         Button gModeButton = (Button) v.findViewById(R.id.gyromode);
         gModeButton.setOnClickListener(this);
 
         ImageView imgview = v.findViewById(R.id.frag3imageview);
-        Button selectbutton = (Button) v.findViewById(R.id.selectphotobutton);
+        FloatingActionButton selectbutton = (FloatingActionButton) v.findViewById(R.id.selectphotobutton);
         SeekBar acceleration = v.findViewById(R.id.acceleration);
         selectbutton.setOnClickListener(this);
         @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -119,15 +117,6 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
         drawingView = v.findViewById(R.id.drawingView);
 
-        ImageButton[] colorImageButtons = new ImageButton[3];
-
-        colorImageButtons[0] = (ImageButton) v.findViewById(R.id.blackColorBtn);
-        colorImageButtons[1] = (ImageButton) v.findViewById(R.id.redColorBtn);
-        colorImageButtons[2] = (ImageButton) v.findViewById(R.id.blueColorBtn);
-        for (ImageButton colorImageButton : colorImageButtons) {
-            colorImageButton.setOnClickListener(this);
-        }
-
         Button resetButton = v.findViewById(R.id.resetBtn);
         FloatingActionButton saveButton;
         saveButton = (FloatingActionButton) v.findViewById(R.id.saveBtn);
@@ -154,14 +143,15 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             }
         }
 
-        if (id == R.id.Evaluation) {
+        if (id == R.id.evaluation) {
             Log.e("Frag3", "Evaluation");
             if(selectedphoto != null){
                 drawingView.setDrawingCacheEnabled(true);
                 Bitmap drawbitmap = drawingView.getDrawingCache();
-                double resultcos = evalBitmap(drawbitmap, selectedphoto);
-                Log.e("Evaluated : ", Double.toString(resultcos));
+                double result = evalBitmap(drawbitmap, selectedphoto);
+                Log.e("Evaluated : ", Double.toString(result));
                 drawingView.setDrawingCacheEnabled(false);
+                ((MainActivity)getActivity()).makescorepopup(result);
             }
         }
         if (id == R.id.gyromode) {
@@ -177,15 +167,6 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         }
 
         switch (id) {
-            case R.id.blackColorBtn:
-                drawingView.setColor(Color.BLACK);
-                break;
-            case R.id.redColorBtn:
-                drawingView.setColor(Color.RED);
-                break;
-            case R.id.blueColorBtn:
-                drawingView.setColor(Color.BLUE);
-                break;
             case R.id.resetBtn:
                 drawingView.reset();
                 break;
@@ -237,7 +218,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         Integer[] array1 = arr1.toArray(new Integer[0]);
         Integer[] array2 = arr2.toArray(new Integer[0]);
         double cos = GetCosineSimilarity(array1, array2);
-        return cos;
+        double Score = (1-cos)*10000;
+        return Score;
     }
     public double GetCosineSimilarity(Integer[] array1, Integer[] array2){
         if(array1.length!= array2.length){
@@ -256,9 +238,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
                 argb2 = (double) ((array2[i]&(0x000000ff<<(j*2*8)))>>(j*2*8));
                 argb1 /= (double) 256;
                 argb2 /= (double) 256;
-                if(i==0){
-                    Log.e("ARGB", Double.toString(argb1));
-                }
+                argb1 = 1-argb1;
+                argb2 = 1-argb2;
                 dotproduct += argb1*argb2;
                 array1rms += argb1*argb1;
                 array2rms += argb2*argb2;
@@ -267,7 +248,6 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         }
         array1rms = Math.sqrt(array1rms);
         array2rms = Math.sqrt(array2rms);
-        Log.e("EVAL", array1rms+" "+array2rms);
         cos = (double)dotproduct / (array1rms * array2rms);
         return cos;
     }

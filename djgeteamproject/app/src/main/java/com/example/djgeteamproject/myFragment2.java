@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Environment;
+
 import android.os.Handler;
-import android.provider.ContactsContract;
+
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,14 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.djgeteamproject.databinding.PhotoremovepopupBinding;
-
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-import static androidx.fragment.app.FragmentKt.setFragmentResult;
 
 
 public class myFragment2 extends Fragment {
