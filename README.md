@@ -49,9 +49,8 @@ Tab 2에서 구현한 갤러리로부터 마음에 드는 이미지를 불러온
 #### 1. Score 계산 문제 해결
 * cosine similarity 대신 phase correlation 혹은 opencv를 활용하여 이미지의 유사도 측정  
 * 측정한 유사도를 Score로 변환하는 식 제작하기  
-#### 2. Firebase를 활용한 데이터베이스로 변경
-* single Dex file은 65536개의 methods만 가질 수 있음
-* multi Dex file을 활용하거나 최적화를 통해 SQLite 대신 Firebase를 사용하여 앱 사용자 간 Database 공유 
+#### 2. 서버를 활용한 데이터베이스로 변경
+* 2주차에서 배운 내용을 바탕으로 개선할 예정
 
 
 ## Environment
