@@ -11,14 +11,15 @@
         android:id="@+id/toptext"
         android:layout_width="match_parent"
         android:layout_height="12pt"
-        android:text="이름         전화번호"
-        android:textSize="10pt"
+        android:text="  이름         전화번호                                프로필"
+        android:textSize="9pt"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="550dp">
+        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

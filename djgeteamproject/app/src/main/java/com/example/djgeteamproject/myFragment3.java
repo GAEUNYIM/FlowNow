@@ -147,11 +147,11 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         if (id == R.id.evaluation) {
             Log.e("Frag3", "Evaluation");
             if(selectedphoto != null){
-                drawingView.setDrawingCacheEnabled(true);
+                drawingView.buildDrawingCache();
                 Bitmap drawbitmap = drawingView.getDrawingCache();
                 double result = evalBitmap(drawbitmap, selectedphoto);
                 Log.e("Evaluated : ", Double.toString(result));
-                drawingView.setDrawingCacheEnabled(false);
+                drawingView.destroyDrawingCache();
                 ((MainActivity)getActivity()).makescorepopup(result);
             }
         }
@@ -235,20 +235,22 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         double cos = 0;
         double argb1 = 0;
         double argb2 = 0;
-        for(int i=0; i<array1.length; i++){
-            for(int j=0;j<4;j++){
-                argb1 = (double) ((array1[i]&(0x000000ff<<(j*2*8)))>>(j*2*8));
-                argb2 = (double) ((array2[i]&(0x000000ff<<(j*2*8)))>>(j*2*8));
+        for(int i=0; i<array1.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                argb1 = (double) ((array1[i] & (0x000000ff << (j * 2 * 8))) >> (j * 2 * 8));
+                argb2 = (double) ((array2[i] & (0x000000ff << (j * 2 * 8))) >> (j * 2 * 8));
                 argb1 /= (double) 256;
                 argb2 /= (double) 256;
-                argb1 = 1-argb1;
-                argb2 = 1-argb2;
-                dotproduct += argb1*argb2;
-                array1rms += argb1*argb1;
-                array2rms += argb2*argb2;
+                argb1 = 1 - argb1;
+                argb2 = 1 - argb2;
+                dotproduct += argb1 * argb2;
+                array1rms += argb1 * argb1;
+                array2rms += argb2 * argb2;
+//                System.out.println(argb1 + ", " + argb2 + ", " + dotproduct + ", " + array1rms + ", " + array2rms);
             }
 
         }
+        System.out.println(dotproduct + ", " + array1rms + ", " + array2rms);
         array1rms = Math.sqrt(array1rms);
         array2rms = Math.sqrt(array2rms);
         cos = (double)dotproduct / (array1rms * array2rms);
