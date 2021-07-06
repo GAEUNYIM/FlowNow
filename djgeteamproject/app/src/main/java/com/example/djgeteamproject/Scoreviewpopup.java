@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class Scoreviewpopup extends DialogFragment implements View.OnClickListener{
     Double score;
+    EditText et;
     public static Scoreviewpopup getInstance(){
         Scoreviewpopup p = new Scoreviewpopup();
         return p;
@@ -29,6 +30,7 @@ public class Scoreviewpopup extends DialogFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.scoreviewpopup, container);
+        et = (EditText) v.findViewById(R.id.userid);
         Bundle sc = getArguments();
         Button savebutton = v.findViewById(R.id.savescore);
         savebutton.setOnClickListener(this);
@@ -44,13 +46,13 @@ public class Scoreviewpopup extends DialogFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.savescore:
-                EditText et = (EditText) v.findViewById(R.id.userid);
-                et.setedit();
+                et.setEnabled(false);
                 Editable id = et.getText();
                 String stid;
                 if(id==null) stid="";
                 else stid = id.toString();
                 ((MainActivity)getActivity()).savescore(score, stid);
+                et.setEnabled(true);
                 dismiss();
         }
     }

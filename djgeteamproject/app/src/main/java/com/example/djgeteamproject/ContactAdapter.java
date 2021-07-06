@@ -130,9 +130,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
             width *= (fScale / 100);
             height *= (fScale / 100);
         }
-
-        //Log.d("rBitmap : " + width + ", " + height);
-
         rBitmap = Bitmap.createScaledBitmap(oBitmap, (int)width, (int)height, true);
         return rBitmap;
     }

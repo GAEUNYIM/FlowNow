@@ -8,13 +8,19 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private myFragment3 frag3;
     private int pos=0;
     private boolean isSelect=false;
+    private DBHelper helper;
+    private SQLiteDatabase db;
+    private ArrayList<SaveScore> scorelist= new ArrayList<>();
+    String USERID = "userid";
+    String SCORE = "score";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         pa.setCurrentItem(pos);
+
+
+        helper = new DBHelper(MainActivity.this, "newdb.db", null, 1);
+        db = helper.getWritableDatabase();
+        helper.onCreate(db);
     }
 
     private void permissionCheck() {
@@ -118,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-
     public void gotoFrag2(){
         setisSelect(true);
         fixviewpager(false);
@@ -127,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void gotoFrag3(){
         setisSelect(false);
+        fixviewpager(true);
         pa.setCurrentItem(2);
     }
     public boolean getisSelect(){
@@ -140,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
     public void fixviewpager(boolean f){
         pa.setUserInputEnabled(f);
     }
-
-    public void fixView() {pa.setUserInputEnabled(false);}
 
     public void makepopup(String path){
         Bundle filepath = new Bundle();
@@ -159,11 +172,59 @@ public class MainActivity extends AppCompatActivity {
         pf.show(getSupportFragmentManager(), "scoreshow");
     }
 
+    public void makescorelistpopup(){
+        Bundle scbundle = new Bundle();
+        getlistofscore();
+        scbundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) scorelist);
+        ScoreListpopup pf = ScoreListpopup.getInstance();
+        pf.setArguments(scbundle);
+        pf.show(getSupportFragmentManager(), "scorelistpopup");
+    }
+
     public void savescore(double score, String id){
        writeNewUser(id, score);
     }
 
     private void writeNewUser(String userId, Double score) {
-        SaveScore user = new SaveScore(userId, score);
+        ContentValues values = new ContentValues();
+        values.put(USERID, userId);
+        values.put(SCORE, score);
+        db.insert("mytable", null, values);
+    }
+
+    public void getlistofscore(){
+        String[] projection = {
+                BaseColumns._ID,
+                USERID,
+                SCORE
+        };
+        String sortOrder = SCORE + " DESC";
+        scorelist.clear();
+        Cursor cursor = db.query(
+                "mytable",
+                projection,   // 값을 가져올 column name의 배열
+                null,   // where 문에 필요한 column
+                null,   // where 문에 필요한 value
+                null,   // group by를 적용할 column
+                null,   // having 절
+                sortOrder   // 정렬 방식
+        );
+        while(cursor.moveToNext()){
+            String name = cursor.getString(1);
+            Double score = cursor.getDouble(2);
+            SaveScore s = new SaveScore(name, score);
+            scorelist.add(s);
+        }
+        cursor.close();
+    }
+
+    public void resetfrag1(){
+        frag1.onDetach();
+        frag1.onAttach(getApplicationContext());
+    }
+
+    public void resetfrag2(){
+        frag2.onDetach();
+        frag2.onAttach(getApplicationContext());
     }
 }

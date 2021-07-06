@@ -17,6 +17,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Fix View?"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:textSize="9pt"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp" />
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
+            android:gravity="right"
             android:backgroundTint="@color/white"
             android:clickable="true"
             app:borderWidth="0dp"
@@ -81,7 +84,6 @@
             android:id="@+id/frag3imageview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="8"
             android:alpha="0.5"/>
     </FrameLayout>
 
@@ -117,8 +119,9 @@
             android:id="@+id/gyromode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="#FDBE00"
             android:layout_margin="5dp"
-            android:text="Start">
+            android:text="START">
         </Button>
 
         <Button
@@ -126,16 +129,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:text="Reset"/>
+            android:backgroundTint="#AFA9A5"
+            android:text="RESET"/>
 
-        <Button
-            android:id="@+id/evaluation"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:text="done" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/evaluation"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="#000000"
+                android:text="DONE" />
+
+            <Button
+                android:id="@+id/showscores"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="#000000"
+                android:text="SHOW SCORELIST" />
+        </LinearLayout>
+
 
     </LinearLayout>
-
 
 </LinearLayout>

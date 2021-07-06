@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 
-public class myFragment1 extends Fragment implements View.OnClickListener{
+public class myFragment1 extends Fragment{
 
     private ArrayList<ContactItem> contactslist = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -46,8 +46,6 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         mAdapter = new ContactAdapter(contactslist);
-        buttonview = (Button) v.findViewById(R.id.btn_product_add_product);
-        buttonview.setOnClickListener(this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -67,18 +65,10 @@ public class myFragment1 extends Fragment implements View.OnClickListener{
                         refreshview.setRefreshing(false);
                     }
                 }, 500);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.putExtra("position", 0);
-                startActivity(intent);
+                ((MainActivity)getActivity()).resetfrag1();
             }
         });
         return v;
-    }
-    public void onClick(View view){
-        int id = view.getId();
-        if(id==R.id.btn_product_add_product){
-            Log.e("pressed","pressed");
-            }
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

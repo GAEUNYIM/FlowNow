@@ -82,15 +82,36 @@ public class myFragment2 extends Fragment {
             @Override
             public void onRefresh() {
                 final Handler handler = new Handler();
+                PhotoAdapter dataAdapter = new PhotoAdapter(getActivity().getApplicationContext(), imageslist);
+                recyclerView.setAdapter(dataAdapter);
+                dataAdapter.setphotolicklistener(new PhotoAdapter.photoclicklistener(){
+                    @Override
+                    public void onPhotoClick(View v, int position) {
+                        if(((MainActivity)getActivity()).getisSelect()){
+                            Log.e("Frag2", "PhotoSelected "+position);
+                            String imagepath = imageslist.get(position).getpath();
+                            Bundle result = new Bundle();
+                            result.putString("bundleKey", imagepath);
+                            getParentFragmentManager().setFragmentResult("key", result);
+                            ((MainActivity)getActivity()).gotoFrag3();
+                        }
+                    }
+                });
+                dataAdapter.setphototouchlistener(new PhotoAdapter.phototouchlistener(){
+                    @Override
+                    public void onPhotoTouch(View v, int position) {
+                        String imagepath = imageslist.get(position).getpath();
+                        ((MainActivity)getActivity()).makepopup(imagepath);
+                    }
+                });
+                prepareData();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         refreshview.setRefreshing(false);
                     }
-                }, 500);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.putExtra("position", 1);
-                startActivity(intent);
+                }, 1000);
+                ((MainActivity)getActivity()).resetfrag2();
             }
         });
 

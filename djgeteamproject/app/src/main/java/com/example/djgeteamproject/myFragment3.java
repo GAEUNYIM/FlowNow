@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.annotation.SuppressLint;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,11 +33,10 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
 
     View v = null;
     DrawingView drawingView;
-    DrawingView cursor;
     boolean fix = true;
     private boolean isGmode = false; // true at gyro Mode; false at pencil Mode
     private Bitmap selectedphoto = null;
-
+    TextView startandstop;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +47,13 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_my3, container, false);
-
+        startandstop = v.findViewById(R.id.gyromode);
         Button evalbutton = (Button) v.findViewById(R.id.evaluation);
         evalbutton.setOnClickListener(this);
         Button gModeButton = (Button) v.findViewById(R.id.gyromode);
         gModeButton.setOnClickListener(this);
-
+        Button showscorelistbutton = (Button) v.findViewById(R.id.showscores);
+        showscorelistbutton.setOnClickListener(this);
         ImageView imgview = v.findViewById(R.id.frag3imageview);
         FloatingActionButton selectbutton = (FloatingActionButton) v.findViewById(R.id.selectphotobutton);
         SeekBar acceleration = v.findViewById(R.id.acceleration);
@@ -159,11 +160,12 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             if (isGmode) {
                 isGmode = false;
                 drawingView.setIsGmode(false);
+                startandstop.setText("START");
             }else {
                 isGmode = true;
                 drawingView.setIsGmode(true);
+                startandstop.setText("STOP");
             }
-
         }
 
         switch (id) {
@@ -173,6 +175,8 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
             case R.id.saveBtn:
                 drawingView.save(getContext()); // may need to fix
                 break;
+            case R.id.showscores:
+                ((MainActivity) getActivity()).makescorelistpopup();
         }
     }
 
@@ -195,7 +199,6 @@ public class myFragment3 extends Fragment implements View.OnClickListener {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 ((MainActivity) getActivity()).fixviewpager(fix = false);
-                ((MainActivity) getActivity()).fixView();
             } else {
                 ((MainActivity) getActivity()).fixviewpager(fix = true);
             }

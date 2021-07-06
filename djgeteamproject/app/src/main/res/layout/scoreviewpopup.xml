@@ -35,5 +35,6 @@
         android:textSize="8pt"
         android:layout_gravity="center"
         android:text="Save"
+        android:backgroundTint="#AFA9A5"
         android:id="@+id/savescore"/>
 </LinearLayout>

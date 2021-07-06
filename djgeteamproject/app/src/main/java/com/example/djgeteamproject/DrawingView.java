@@ -32,7 +32,7 @@ public class DrawingView extends View implements View.OnTouchListener{
     private ArrayList<PaintPoint> points = new ArrayList<PaintPoint>();
     private ArrayList<PaintPoint> cursor = new ArrayList<PaintPoint>();
     private int color = Color.BLACK; // 선 색
-    private int lineWith = 3; // 선 두께
+    private int lineWith = 10; // 선 두께
     private int cursorwith = 20; //커서 사이즈
     private float[] paintvector = {(float)0.0, (float)0.0};
     private SensorManager sensorManager;
