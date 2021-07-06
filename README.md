@@ -5,7 +5,10 @@
 #### Members : 이동재, 임가은
 
 ## Description
-< TODO : 탭 세 개의 screenshots>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/59522019/124630909-d2197100-debd-11eb-9bf6-ed405f2884cb.jpg" width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124630904-d180da80-debd-11eb-9e9e-7c2b4be06d28.jpg"  width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124630898-d04fad80-debd-11eb-80c8-994fdd3b54e5.jpg"  width="270" height="570">
+</p>
+
 ### (Tab 1) "Contacts"
 ##### 디바이스에 저장된 연락처 목록을 보여주는 탭
 디바이스의 로컬 연락처 저장소에 접근하여 연락처 정보를 불러온다. 스크롤하여 Name, PhoneNumber, ThumbNail을 볼 수 있고, 화면 새로 고침이 가능하다.
@@ -19,7 +22,10 @@
 
 ### (Tab 3) "Flow"
 ##### 마음에 드는 이미지에 몰입해 보는 Game
-Tab 2에서 구현한 갤러리로부터 마음에 드는 이미지를 불러온다. 휴대폰을 기울이기를 통해 화면의 Ink Cursor를 움직이면서 최대한 비슷하게 이미지를 따라 그리면 성공! < TODO : Tab3 에 대한 이미지 첨부>
+Tab 2에서 구현한 갤러리로부터 마음에 드는 이미지를 불러온다. 휴대폰을 기울이기를 통해 화면의 Ink Cursor를 움직이면서 최대한 비슷하게 이미지를 따라 그리면 성공! 
+<video src="https://user-images.githubusercontent.com/59522019/124633582-5e2c9800-dec0-11eb-824e-65237101ab90.mp4" width="270" height="570">
+<video src="https://user-images.githubusercontent.com/59522019/124634425-4acdfc80-dec1-11eb-86d1-ac9207d1c912.mp4" width="270" height="570">
+
 ###### 게임 방법
   1. 상단의 Gallery 버튼을 눌러서 마음에 드는 이미지를 선택한다
   2. 불러온 사진의 투명도를 조절한다
