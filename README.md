@@ -1,5 +1,5 @@
-# djge
-몰입캠프 Week 1 과제로 'Tab 3개를 수행하는 어플리케이션'을 Android Studio 에서 구현하였다.  
+# 여기, 몰입 (Flow Now)
+몰입캠프 Week 1 과제는 'Tab 3개를 수행하는 어플리케이션'을 Android Studio 에서 구현하는 것이었다. **'여기, 몰입 (Flow Now)'** Application은 연락처와 갤러리, 그리고 Flow 게임의 세 가지 Tab 기능을 지원한다. 연락처와 갤러리 탭은 휴대폰의 로컬 저장소로부터 정보를 받아와서 화면에 List up 하여 보여주는 탭이다. **Flow 게임**은 휴대폰의 가속도 센서를 이용하여 내가 마음에 드는 그림에 몰입해서 선을 따라 그리는 게임으로, 원본 이미지와 비슷하게 그리면 그릴 수록 당신의 몰입 점수 (Flow Score)는 높아진다. 점수를 받은 이후에는 Score Board에서 나의 순위를 학인할 수 있으니, *"다함께 Flow 해 보자!"*
 
 ## Team information
 #### Members : 이동재, 임가은
@@ -14,7 +14,6 @@
 디바이스의 로컬 연락처 저장소에 접근하여 연락처 정보를 불러온다. 스크롤하여 Name, PhoneNumber, ThumbNail을 볼 수 있고, 화면 새로 고침이 가능하다.
 
 
-
 ### (Tab 2) "Gallery"
 ##### 디바이스에 저장된 이미지들을 보여주는 탭
 디바이스의 로컬 갤러리 저장소에 접근하여 이미지 정보를 불러온다. 스크롤하여 사진 PreView를 볼 수 있고, 화면 새로 고침이 가능하다. 사진을 꾹 누를 경우 팝업창이 뜨면서 사진을 삭제할 수 있다.
@@ -23,8 +22,9 @@
 ### (Tab 3) "Flow"
 ##### 마음에 드는 이미지에 몰입해 보는 Game
 Tab 2에서 구현한 갤러리로부터 마음에 드는 이미지를 불러온다. 휴대폰을 기울이기를 통해 화면의 Ink Cursor를 움직이면서 최대한 비슷하게 이미지를 따라 그리면 성공! 
-<video src="https://user-images.githubusercontent.com/59522019/124633582-5e2c9800-dec0-11eb-824e-65237101ab90.mp4" width="270" height="570">
-<video src="https://user-images.githubusercontent.com/59522019/124634425-4acdfc80-dec1-11eb-86d1-ac9207d1c912.mp4" width="270" height="570">
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/59522019/124687749-7e844300-df10-11eb-88f4-3aef9a302fba.jpg" width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124687752-7fb57000-df10-11eb-9ac8-c42266321a37.jpg"  width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124687755-804e0680-df10-11eb-9d54-7b5da4c85b2b.jpg"  width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124687757-80e69d00-df10-11eb-9952-8150527f7e53.jpg"  width="270" height="570"> <img src="https://user-images.githubusercontent.com/59522019/124687759-817f3380-df10-11eb-903b-210901df0af7.jpg"  width="270" height="570">
 
 ###### 게임 방법
   1. 상단의 Gallery 버튼을 눌러서 마음에 드는 이미지를 선택한다
@@ -36,7 +36,8 @@ Tab 2에서 구현한 갤러리로부터 마음에 드는 이미지를 불러온
    + Canvas의 임의의 위치를 클릭하여 Ink Cursor의 위치를 재설정 할 수 있다
    ```
   4. DONE 버튼을 누르면 나의 Flow Score(몰입 점수)를 알 수 있다
-  5. SHOW SCORELIST 버튼을 누르면 Database에 저장된 점수 목록을 팝업창을 통해서 확인할 수 있다.
+  5. 이름을 입력하여 나의 기록을 저장한다
+  5. SHOW SCORELIST 버튼을 누르면 스코어보드를 통해 나의 순위를 확인할 수 있다
  
 ##### 구현 방법
   1. Canvas를 사용해 그림을 그리고 저장할 수 있도록 했다. 
